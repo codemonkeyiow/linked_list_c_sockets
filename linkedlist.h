@@ -13,6 +13,8 @@ typedef struct LinkedList {
 
 Node *create_node(const int value);
 LinkedList *create_list(void);
+void delete_list(LinkedList *list);
+void push_p(const int value, Node **head);
 void push(const int value, LinkedList *list);
 int pop(LinkedList *list);
 void print_list(LinkedList *list);

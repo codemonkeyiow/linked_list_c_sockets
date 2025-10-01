@@ -45,16 +45,31 @@ LinkedList *create_list(void)
 	return list;
 }
 
+void delete_list(LinkedList *list)
+{
+	Node *head;
+	while(list->head != NULL) {
+		head = list->head;
+		list->head = list->head->next;
+		free(head);
+	}
+}
+
+void push_p(const int value, Node** head)
+{
+	struct Node* node = create_node(value);
+	node->next = *head;
+	*head = node;
+}
+
 void push(const int value, LinkedList *list)
 {
-	Node *node = create_node(value);
-	node->next = list->head;
-	list->head = node;
+	push_p(value, &list->head);
 	list->length++;
 	set_colour(FG_CYAN);
 	printf("\n-Push List-\n");
 	reset_colour();
-	printf(" %d list->length %d\n", node->value, list->length);
+	printf(" %d list->length %d\n", list->head->value, list->length);
 }
 
 int pop(LinkedList *list)
