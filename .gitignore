@@ -1,3 +1,6 @@
 **.obj
 **.out
 bin/
+linkedlist
+client
+server

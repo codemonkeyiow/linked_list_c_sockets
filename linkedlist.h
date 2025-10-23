@@ -3,6 +3,7 @@
 typedef struct Node {
 	int value;
 	struct Node *next;
+	// struct Node *prev;
 } Node;
 
 typedef struct LinkedList {
@@ -13,9 +14,11 @@ typedef struct LinkedList {
 
 Node *create_node(const int value);
 LinkedList *create_list(void);
-void delete_list(LinkedList *list);
+void delete_list(LinkedList **list);
 void push_p(const int value, Node **head);
 void push(const int value, LinkedList *list);
+void push_back(const int value, LinkedList *list);
 int pop(LinkedList *list);
+int pop_back(LinkedList *list);
 void print_list(LinkedList *list);
 void bubble_sort(LinkedList *list);

@@ -6,11 +6,14 @@
 #include "colours.h"
 #include "linkedlist.h"
 
+void arr(int a[], int len) {
+	for (int i = 0; i < len; i++) {
+		a[i] = i;
+	}
+}
+
 int main(int argc, char *argv[])
 {
-	LinkedList *l = NULL;
-	print_list(l);
-	bubble_sort(l);
 	LinkedList *list = create_list();
 	push(5,list);
 	print_list(list);
@@ -23,6 +26,14 @@ int main(int argc, char *argv[])
 	pop(list);
 	pop(list);
 	print_list(list);
+
+	push(15,list);
+	push(25,list);
+	delete_list(&list);
+	print_list(list);
+
+	printf("\n");
+
 	return 0;
 }
 
@@ -42,17 +53,35 @@ LinkedList *create_list(void)
 	list->head = NULL;
 	list->tail = NULL;
 	list->length = 0;
+
+	set_colour(FG_GREEN);
+	printf("\n-Create List-\n");
+	printf(" Created!\n");
+	reset_colour();
+
 	return list;
 }
 
-void delete_list(LinkedList *list)
+void delete_list(LinkedList **list)
 {
-	Node *head;
-	while(list->head != NULL) {
-		head = list->head;
-		list->head = list->head->next;
-		free(head);
+	set_colour(FG_YELLOW);
+	printf("\n-Delete List-\n ");
+	reset_colour();
+
+	if (list == NULL || *list == NULL) return;
+
+	Node *current = (*list)->head;
+	while (current != NULL) {
+		Node *next = current->next;
+		printf("%d ", current->value);
+		free(current);
+		current = next;
 	}
+
+	printf("\n Deleted!\n");
+
+	free(*list);
+	*list = NULL;
 }
 
 void push_p(const int value, Node** head)
@@ -64,16 +93,57 @@ void push_p(const int value, Node** head)
 
 void push(const int value, LinkedList *list)
 {
-	push_p(value, &list->head);
+	if (list == NULL) return;
+
+	Node *node = create_node(value);
+
+	if (list->head == NULL) {
+		list->head = node;
+		list->tail = node;
+	} else {
+		node->next = list->head;
+		list->head = node;
+	}
+
 	list->length++;
+
 	set_colour(FG_CYAN);
 	printf("\n-Push List-\n");
 	reset_colour();
-	printf(" %d list->length %d\n", list->head->value, list->length);
+	printf(" %d list->length %d\n", value, list->length);
+}
+
+void push_back(const int value, LinkedList *list)
+{
+	if (list == NULL) return;
+
+	Node *node = create_node(value);
+
+	if (list->head == NULL) {
+		list->head = node;
+		list->tail = node;
+	} else {
+		list->tail->next = node;
+		list->tail = node;
+	}
+
+	list->length++;
+
+	set_colour(FG_CYAN);
+	printf("\n-Push Back-\n");
+	reset_colour();
+	printf(" %d list->length %d\n", value, list->length);
 }
 
 int pop(LinkedList *list)
 {
+	if (list == NULL || list->head == NULL || list->length == 0) {
+		set_colour(FG_RED);
+		printf("\n-Pop List-\n EMPTY\n");
+		reset_colour();
+		return 0;
+	}
+
 	int value = list->head->value;
 
 	Node *head = list->head;
@@ -82,8 +152,41 @@ int pop(LinkedList *list)
 
 	list->length--;
 
+	if (list->head == NULL) {
+		list->tail = NULL;
+	}
+
 	set_colour(FG_MAGENTA);
 	printf("\n-Pop List-\n");
+	reset_colour();
+	printf(" %d list->length %d\n", value, list->length);
+
+	return value;
+}
+
+int pop_back(LinkedList *list)
+{
+	if (list == NULL || list->tail == NULL || list->length == 0) {
+		set_colour(FG_RED);
+		printf("\n-Pop Back List-\n EMPTY\n");
+		reset_colour();
+		return 0;
+	}
+
+	int value = list->tail->value;
+
+	Node *tail = list->tail;
+	// list->tail = list->tail ???
+	free(tail);
+
+	list->length--;
+
+	if (list->tail == NULL) {
+		list->head == NULL;
+	}
+
+	set_colour(FG_MAGENTA);
+	printf("\n-Pop Back List-\n");
 	reset_colour();
 	printf(" %d list->length %d\n", value, list->length);
 
