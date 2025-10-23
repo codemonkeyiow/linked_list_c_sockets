@@ -6,12 +6,6 @@
 #include "colours.h"
 #include "linkedlist.h"
 
-void arr(int a[], int len) {
-	for (int i = 0; i < len; i++) {
-		a[i] = i;
-	}
-}
-
 int main(int argc, char *argv[])
 {
 	LinkedList *list = create_list();
