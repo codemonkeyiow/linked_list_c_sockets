@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stddef.h>
+
 typedef struct Node {
 	int value;
 	struct Node *next;

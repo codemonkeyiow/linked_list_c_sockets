@@ -6,31 +6,6 @@
 #include "colours.h"
 #include "linkedlist.h"
 
-int main(int argc, char *argv[])
-{
-	LinkedList *list = create_list();
-	push(5,list);
-	print_list(list);
-	push(15,list);
-	push(25,list);
-	print_list(list);
-	bubble_sort(list);
-	print_list(list);
-
-	pop(list);
-	pop(list);
-	print_list(list);
-
-	push(15,list);
-	push(25,list);
-	delete_list(&list);
-	print_list(list);
-
-	printf("\n");
-
-	return 0;
-}
-
 Node *create_node(const int value)
 {
 	Node *const node = malloc(sizeof(Node));
@@ -104,7 +79,7 @@ void push(const int value, LinkedList *list)
 	set_colour(FG_CYAN);
 	printf("\n-Push List-\n");
 	reset_colour();
-	printf(" %d list->length %d\n", value, list->length);
+	printf(" %d list->length %zu\n", value, list->length);
 }
 
 void push_back(const int value, LinkedList *list)
@@ -126,7 +101,7 @@ void push_back(const int value, LinkedList *list)
 	set_colour(FG_CYAN);
 	printf("\n-Push Back-\n");
 	reset_colour();
-	printf(" %d list->length %d\n", value, list->length);
+	printf(" %d list->length %zu\n", value, list->length);
 }
 
 int pop(LinkedList *list)
@@ -153,7 +128,7 @@ int pop(LinkedList *list)
 	set_colour(FG_MAGENTA);
 	printf("\n-Pop List-\n");
 	reset_colour();
-	printf(" %d list->length %d\n", value, list->length);
+	printf(" %d list->length %zu\n", value, list->length);
 
 	return value;
 }
@@ -182,7 +157,7 @@ int pop_back(LinkedList *list)
 	set_colour(FG_MAGENTA);
 	printf("\n-Pop Back List-\n");
 	reset_colour();
-	printf(" %d list->length %d\n", value, list->length);
+	printf(" %d list->length %zu\n", value, list->length);
 
 	return value;
 }
